@@ -6,8 +6,8 @@ Za izračun optimalne proizvodnje koristimo Wagner-Within metodu
 
 Ulazne vrijednosti su:
 
-1. trošak pripreme linije
-2. trošak skladištenja po jedinici vremena
-3. prognoza za količinu po jedinici vremena
-4. jedinica vremena
-5. trošak proizvodnje po komadu
+    1. trošak pripreme linije
+    2. trošak skladištenja po jedinici vremena
+    3. prognoza za količinu po jedinici vremena
+    4. jedinica vremena
+    5. trošak proizvodnje po komadu
