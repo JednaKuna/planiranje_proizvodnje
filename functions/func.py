@@ -90,7 +90,7 @@ def backward(time_frame, data, data_calc):
                            'nexts':nexts,
                            'cost':costs,
                            'quantity':quantities}).set_index('backward')
-   print("Total Cost: {:,}e".format(df_results.cost.sum()))
+   #print("Total Cost: {:,}e".format(df_results.cost.sum()))
    
    return(df_results)
    
@@ -125,7 +125,7 @@ def calculation(setup_cost, hold_cost, production_cost, df_results, data):
 
 
     
-def cost_comparison(setup_cost, production_cost, time_frame, results_final):
+def cost_comparison(setup_cost, production_cost, holding_cost, time_frame, results_final):
     
     #Izračum ukupnih troškova tjekom odabranog perioda
     # Standardni troskovi: tu sam racunao samo troskove pripreme (bez troskova skladistenja)
@@ -148,7 +148,7 @@ def cost_comparison(setup_cost, production_cost, time_frame, results_final):
     t[0] = optimalni_troskovi[0]
 
     for i in range(0,time_frame):
-        t[i] = t[i-1]+optimalni_troskovi[i]
+        t[i] = t[i-1] + optimalni_troskovi[i]
     optimalni_troskovi = t
 
     # Mjesecna usteda
