@@ -119,7 +119,7 @@ def calculation(setup_cost, hold_cost, production_cost, df_results, data):
     results_final['Holding + Set-Up'] = results_final[['Holding Cost', 'Set-Up Costs']].sum(axis = 1)
 
     # Ukupno 
-    results_final['Total Cost'] = (results_final['production'] * production_cost) + results_final['Set-Up Costs'] + results_final['Holding Cost']
+    results_final['Total Cost (inc. Production)'] = (results_final['production'] * production_cost) + results_final['Set-Up Costs'] + results_final['Holding Cost']
 
     return(results_final)
 
@@ -143,7 +143,7 @@ def cost_comparison(setup_cost, production_cost, holding_cost, time_frame, resul
     standardni_troskovi = np.add(s,ss).tolist()
 
     #Optimalni troskovi
-    optimalni_troskovi = results_final['Total Cost'].tolist()
+    optimalni_troskovi = results_final['Total Cost (inc. Production)'].tolist()
     t = [0] * time_frame
     t[0] = optimalni_troskovi[0]
 
