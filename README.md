@@ -2,7 +2,7 @@
 
 Aplikacija za planiranje serijske proizvodnje
 
-Za izračun optimalne proizvodnje koristimo Wagner-Within metodu
+Za izračun optimalne proizvodnje koristimo Wagner-Within metodu u kombinaciji sa Stohastičkim modeliranjem nesigurnosti
 
 Ulazne vrijednosti su:
 
@@ -11,11 +11,12 @@ Ulazne vrijednosti su:
         3. prognoza za količinu po jedinici vremena
         4. jedinica vremena
         5. trošak proizvodnje po komadu
+        6. service level (%)
+        7. standardna devijacija
+        8. offset devijacije
+        9. broj scenarija za simulaciju
 
-Za određivanje broja serija koristim Wagner-Within metodu za koju su potrebni svi gore navedeni podatci osim troškova proizvodnje.
-Troškove skladištenja ne računam za komade koje šaljem van taj mjesec nego samo za one koji se šalju van u narednim mjesecima.
-
-Nakon što izračunam najbolji raspored serija onda dodam i troškove proizvodnje kako bi prikazao učinkovitost tog 'optimalnog' načina proizvodnje.
+Za određivanje broja serija koristim Wagner-Within metodu.
 
 Wagner-Whitin metoda
 
@@ -29,3 +30,15 @@ Kada koristiti?
 Kada imate dobro definiranu i predvidivu potražnju.
 Kad je problem relativno jednostavan i odnosi se na optimizaciju troškova u pojedinom skladištu ili proizvodnom procesu.
 Ako nema značajnih kapacitetskih ograničenja ili nesigurnosti.
+
+Kombiniranje stohastičkog modeliranja s Wagner-Whitin metodom
+
+        Kombinacija ovih pristupa može pomoći u suočavanju s nesigurnostima, primjerice u potražnji ili troškovima.
+        Za ovaj primjer smo uzeli u obzir nesigurnosti u potražnji.
+
+        Ovo su koraci:
+        1. Identifikacija nesigurnosti: Odredimo koji aspekti Wagner-Whitin modela nisu sigurni (potražnja).
+        2. Modeliranje nesigurnosti: Koristimo stohastičke varijable za opisivanje nesigurnih parametara(Normalna distribucija).
+        3. Generiranje scenarija: Koristimo Monte Carlo simulaciju pomoću koje stvaramo velik boj mogućih scenarija
+        4. Primjena Wagner-Whitin metode: Za svaki scenarij, primijenimo Wagner-Whitin algoritam kako bi izračunali optimalni plan zaliha i proizvodnje.
+        5. Evaluacija rezultata: Analiziramo rezultate svih scenarija kako bi identificirali trendove, rizike i očekivane troškove.
