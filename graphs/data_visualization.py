@@ -5,12 +5,13 @@ import matplotlib.pyplot as plt
 
 
 
-def forecast_and_production(results_final):
+def forecast_and_production(results_final, detailed_schedule_df_no_leftovers):
     
     # Define values
-    categories = results_final['period']
-    forecast_values = results_final['forecast']
-    production_values = results_final['production']
+    categories = results_final['Period']
+    forecast_values = results_final['Forecast']
+    production_values1 = results_final['Production']
+    production_values2 = detailed_schedule_df_no_leftovers['Production']
 
     # Number of bars
     n = len(categories)
@@ -19,11 +20,12 @@ def forecast_and_production(results_final):
     x = np.arange(n)
 
     # Bar width (adjust as needed)
-    width = 0.35
+    width = 0.25
 
     # Create the bars for 'forecast' and 'production' side by side
-    plt.bar(x - width/2, forecast_values, width, label='Forecast')
-    plt.bar(x + width/2, production_values, width, label='Production')
+    plt.bar(x - width, forecast_values, width, label='Forecast')
+    plt.bar(x, production_values1, width, label='Production')
+    plt.bar(x + width, production_values2, width, label='Production with Stohastic model')
     plt.title('Comparison of Forecast and Production')
     plt.xlabel('Time')
     plt.ylabel('Quantity')
@@ -33,11 +35,13 @@ def forecast_and_production(results_final):
 
     return(plt.show())
 
-def inventory_and_production(results_final):
+def inventory(results_final, detailed_schedule_df_no_leftovers):
     
-    categories = results_final['period']
-    IOH_values = results_final['IOH']
-    production_values = results_final['production']
+    # Define values
+    categories = results_final['Period']
+    forecast_values = results_final['Forecast']
+    inventory_values1 = results_final['Inventory on Hold']
+    inventory_values2 = detailed_schedule_df_no_leftovers['Inventory on Hold']
 
     # Number of bars
     n = len(categories)
@@ -46,12 +50,13 @@ def inventory_and_production(results_final):
     x = np.arange(n)
 
     # Bar width (adjust as needed)
-    width = 0.35
+    width = 0.25
 
-    # Create the bars for 'IOH' and 'production' side by side
-    plt.bar(x + width/2, IOH_values, width, label='Inventory')
-    plt.bar(x - width/2, production_values, width, label='Production')
-    plt.title('Comparison of Inventory on hold and Production')
+    # Create the bars for 'forecast' and 'inventory' side by side
+    plt.bar(x - width, forecast_values, width, label='Forecast')
+    plt.bar(x, inventory_values1, width, label='Normal Inventory')
+    plt.bar(x + width, inventory_values2, width, label='Inventory with Stohastic model')
+    plt.title('Comparison of Forecast and Inventory')
     plt.xlabel('Time')
     plt.ylabel('Quantity')
     plt.xticks(x, categories)
@@ -69,11 +74,12 @@ def normal_vs_optimal_costs(cost_comprison):
     plt.figure(figsize=(10, 6))
 
     # Plot 'standardni_troskovi' and 'optimalni_troskovi'
-    plt.plot(cost_comprison.index, cost_comprison['standardni troskovi'], label='Normal', marker='o')
-    plt.plot(cost_comprison.index, cost_comprison['optimalni troskovi'], label='Optimal', marker='o')
+    plt.plot(cost_comprison.index, cost_comprison['Standard Costs'], label='Normal', marker='o')
+    plt.plot(cost_comprison.index, cost_comprison['Optimal Costs'], label='Optimal', marker='o')
+    plt.plot(cost_comprison.index, cost_comprison['Stohastic Costs'], label='Stohastic', marker='o')
 
     # Adding labels and title
-    plt.title('Comparison of Normal vs Optimal Cost')
+    plt.title('Comparison of Normal vs Optimal vs Stohastic Costs')
     plt.xlabel('Time')
     plt.ylabel('Cost')
     plt.xticks(cost_comprison.index, months)
@@ -85,11 +91,11 @@ def normal_vs_optimal_costs(cost_comprison):
 def savings(cost_comparison):
     
     # Define a list to store the bar colors based on the 'mjesecna usteda' values
-    bar_colors = ['red' if value < 0 else 'green' for value in cost_comparison['mjesecna usteda']]
+    bar_colors = ['red' if value < 0 else 'green' for value in cost_comparison['Monthly Savings Stohastic Method']]
 
     # Create a bar chart with conditional coloring
     plt.figure(figsize=(10, 6))
-    bars = plt.bar(cost_comparison.index, cost_comparison['mjesecna usteda'], color=bar_colors)
+    bars = plt.bar(cost_comparison.index, cost_comparison['Monthly Savings Stohastic Method'], color=bar_colors)
 
     # Labeling the chart
     plt.title('Acumulation of savings over time')
