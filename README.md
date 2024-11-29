@@ -1,44 +1,50 @@
-# planiranje_proizvodnje
+# Wagner-Whiting production planning (still in progress)
 
-Aplikacija za planiranje serijske proizvodnje
+This is an app for calculating optimal production cycle using Wagner-Whitin method with fixed and variable demands.
 
-Za izračun optimalne proizvodnje koristimo Wagner-Within metodu u kombinaciji sa Stohastičkim modeliranjem nesigurnosti
+My goal for this project was to get familiar with web development.
 
-Ulazne vrijednosti su:
+My stack of choice for this projet: JavaScript and Python(Flask)
 
-        1. trošak pripreme linije
-        2. trošak skladištenja po jedinici vremena
-        3. prognoza za količinu po jedinici vremena
-        4. jedinica vremena
-        5. trošak proizvodnje po komadu
-        6. service level (%)
-        7. standardna devijacija
-        8. offset devijacije
-        9. broj scenarija za simulaciju
+# Table of contents
 
-Za određivanje broja serija koristim Wagner-Within metodu.
+- [Usage](#usage)
+- [Installation](#installation)
+- [How it works](#howitworks)
+- [What I learned](#what-i-learned)
+- [License](#license)
 
-Wagner-Whitin metoda
+# Usage
 
-Prednosti:
-Optimalno rješenje za determinističke uvjete, Minimizacija ukupnih troškova, Fleksibilnost za promjenjive potražnje u slučaju da je potražnja poznata, Jednostavnost implementacije, Koristi princip dinamičkog programiranja
+[(Back to top)](#table-of-contents)
 
-Nedostatci:
-Pretpostavka determinističkih uvjeta, Ograničenost vremenskog horizonta, Neefikasnost kod velikih problema, Ne uzima u obzir stohastičku potražnju, Ne uzima u obzir kapacitetska ograničenja, Osjetljivost na promjene ulaznih podataka
+# Installation
 
-Kada koristiti?
-Kada imate dobro definiranu i predvidivu potražnju.
-Kad je problem relativno jednostavan i odnosi se na optimizaciju troškova u pojedinom skladištu ili proizvodnom procesu.
-Ako nema značajnih kapacitetskih ograničenja ili nesigurnosti.
+[(Back to top)](#table-of-contents)
 
-Kombiniranje stohastičkog modeliranja s Wagner-Whitin metodom
+1. Install Python (preferably, version >= 3.11)
+2. Install Flask
 
-        Kombinacija ovih pristupa može pomoći u suočavanju s nesigurnostima, primjerice u potražnji ili troškovima.
-        Za ovaj primjer smo uzeli u obzir nesigurnosti u potražnji.
+# How it works
 
-        Ovo su koraci:
-        1. Identifikacija nesigurnosti: Odredimo koji aspekti Wagner-Whitin modela nisu sigurni (potražnja).
-        2. Modeliranje nesigurnosti: Koristimo stohastičke varijable za opisivanje nesigurnih parametara(Normalna distribucija).
-        3. Generiranje scenarija: Koristimo Monte Carlo simulaciju pomoću koje stvaramo velik boj mogućih scenarija
-        4. Primjena Wagner-Whitin metode: Za svaki scenarij, primijenimo Wagner-Whitin algoritam kako bi izračunali optimalni plan zaliha i proizvodnje.
-        5. Evaluacija rezultata: Analiziramo rezultate svih scenarija kako bi identificirali trendove, rizike i očekivane troškove.
+Still in progress
+
+# What I learned
+
+[(Back to top)](#table-of-contents)
+
+1. Before writing any code, it is important to figure out bussines logic, basic front end elements and I/O logic. That way we can build elements that are easier to combine together and work more efficient.
+
+2. It helps to start with sudo code. That way I can see what functions to make and how to combine them
+
+3. Separate different parts of the code. Code separation makes it easier to make changes, add new features and debug the code.
+
+4. Implement one feature at the time. It makes debugging much easier and faster.
+
+5. Test the code
+
+# License
+
+[(Back to top)](#table-of-contents)
+
+No licence
