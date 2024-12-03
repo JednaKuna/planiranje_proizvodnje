@@ -3,9 +3,10 @@ import numpy as np
 import utils.functions.func as f
 import utils.graphs.data_visualization as data_viz
 import json
-import os
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
 app.config['DEBUG'] = True  # Enables debug mode
 app.config['USE_PIN'] = False  # Disables pin for local debugging
@@ -56,7 +57,7 @@ def calculate():
         # Generate stochastic demand scenarios
         normal_scenarios = np.random.normal(
             mean_demand_shift, std_dev_demand, (num_scenarios, time_period)
-        ) + quantity_per_period
+            ) + quantity_per_period
         normal_scenarios = np.clip(normal_scenarios, 0, None).astype(int)
 
         # Calculate safety stock
@@ -73,10 +74,6 @@ def calculate():
         average_cost_normal = np.mean(costs_normal)
         optimal_schedule_summary_normal = optimal_schedules_normal[np.argmin(costs_normal)]
 
-        # Results with fixed demand
-        data = f.quantities_table(quantity_per_period, time_period)
-        data_calc = data.copy()
-
         # Calculate costs for Wagner-Whitin method
         costs, schedule=f.wagner2(quantity_per_period, time_period, setUp_cost, holding_cost)
         schedule_summary=schedule[np.argmin(costs)]
@@ -87,17 +84,34 @@ def calculate():
             optimal_schedule_summary_normal, quantity_per_period, time_period, setUp_cost, holding_cost, production_cost
         )
 
+        # Cumulative sum of costs
+        cumsum1 = results_final["Total Costs(inc. Production)"].cumsum().tolist()
+        cumsum2 = detailed_schedule_df_no_leftovers["Total Costs(inc. Production)"].cumsum().tolist()
+        cumsum = {
+            "period": [i for i in range(1, len(quantity_per_period)+1)],
+            "fixed": cumsum1,
+            "stohastic": cumsum2
+        }
+        
+        # Costs Comparison DataFrame and Dict for graph
+        cost_comparison_df=f.cost_comparison(setUp_cost, production_cost, holding_cost, time_period, results_final, detailed_schedule_df_no_leftovers)
+        cost_comparison = {
+            "period": [i for i in range(1, len(quantity_per_period)+1)],
+            "standard": cost_comparison_df["Standard Costs"].tolist(),
+            "optimal": cost_comparison_df["Optimal Costs"].tolist(),
+            "stohastic": cost_comparison_df["Stohastic Costs"].tolist(),
+        }
+        
         total_cost1 = int(results_final["Total Costs(inc. Production)"].sum())
         total_cost2 = int(detailed_schedule_df_no_leftovers["Total Costs(inc. Production)"].sum())
 
         # Generate graphs
+        # Production quantity
         graph1 = {
-            "labels": [i for i in range(1, len(quantity_per_period)+1)],
-            "values": quantity_per_period,
-        }
-        #graph2 = data_viz.inventory(results_final, detailed_schedule_df_no_leftovers)
-        #cost_comparison = f.cost_comparison(setUp_cost, production_cost, holding_cost, time_period, results_final, detailed_schedule_df_no_leftovers)
-
+                "labels": [i for i in range(1, len(quantity_per_period)+1)],
+                "values": quantity_per_period,
+            }
+        
         # Summarize the response
         return jsonify({
             "success": True,
@@ -105,8 +119,11 @@ def calculate():
             "total_cost_stochastic": total_cost2,
             "average_cost_normal": average_cost_normal,
             "quantity_per_period": quantity_per_period,  # Include for debugging or confirmation
-            "graph1": graph1,  # Base64 encoded graph 1
-            #"graph2": graph2,  # Base64 encoded graph 2
+            "graph1": graph1,  
+            "df1": detailed_schedule_df_no_leftovers.to_dict(orient='records'),
+            "df2": results_final.to_dict(orient='records'),
+            "cumsum": cumsum,
+            "cost_comparison": cost_comparison
 
         })
 

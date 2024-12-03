@@ -1,8 +1,11 @@
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
 import io
 import base64
+import matplotlib
+matplotlib.use('Agg')  # Use a non-GUI backend
+import matplotlib.pyplot as plt
+
 
 
 
@@ -71,8 +74,8 @@ def inventory(results_final, detailed_schedule_df_no_leftovers):
     plt.savefig(buf1, format="png")
     buf1.seek(0)
     plt.close()
-    graph1_base64 = base64.b64encode(buf1.getvalue()).decode("utf-8")
-    return(graph1_base64)
+    #graph1_base64 = base64.b64encode(buf1.getvalue()).decode("utf-8")
+    return(buf1)
 
 def normal_vs_optimal_costs(cost_comprison):
     
