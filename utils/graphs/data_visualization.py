@@ -3,7 +3,6 @@ import numpy as np
 import io
 import base64
 import matplotlib
-matplotlib.use('Agg')  # Use a non-GUI backend
 import matplotlib.pyplot as plt
 
 
@@ -37,11 +36,11 @@ def forecast_and_production(results_final, detailed_schedule_df_no_leftovers):
     plt.xticks(x, categories)
     plt.legend()
     plt.tight_layout()
-    plt.savefig(buf1, format="png") 
-    buf1.seek(0)
-    plt.close()
-    graph1_base64 = base64.b64encode(buf1.getvalue()).decode("utf-8")
-    return(graph1_base64)
+    #plt.savefig(buf1, format="png") 
+    #buf1.seek(0)
+    #plt.close()
+    #graph1_base64 = base64.b64encode(buf1.getvalue()).decode("utf-8")
+    return(plt.show())
 
 def inventory(results_final, detailed_schedule_df_no_leftovers):
     
@@ -73,9 +72,9 @@ def inventory(results_final, detailed_schedule_df_no_leftovers):
     plt.tight_layout()
     plt.savefig(buf1, format="png")
     buf1.seek(0)
-    plt.close()
+    #plt.close()
     #graph1_base64 = base64.b64encode(buf1.getvalue()).decode("utf-8")
-    return(buf1)
+    return(plt.show())
 
 def normal_vs_optimal_costs(cost_comprison):
     

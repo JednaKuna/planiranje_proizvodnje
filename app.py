@@ -1,7 +1,6 @@
 from flask import Flask, request, render_template, jsonify
 import numpy as np
 import utils.functions.func as f
-import utils.graphs.data_visualization as data_viz
 import json
 from flask_cors import CORS
 
