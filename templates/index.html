@@ -25,94 +25,102 @@
         font-size: 0.9em;
         color: #555;
       }
+      .inline {
+        display: inline-block;
+      }
     </style>
   </head>
   <body>
     <header>
       <h1>Wagner-Whiting Model Calculation</h1>
       <p>A simple web calculator</p>
+      <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+      <!-- Load Chart.js globally -->
+      <script src="script.js" defer></script>
+      <!-- No type="module" needed -->
     </header>
     <main>
       <h2>About</h2>
       <p>
-        This is a basic HTML page with a simple layout. You can use it as a
-        starting point for your projects.
+        This is a basic app that calculates costs and production schedule using
+        Wagner-Whitin method.
       </p>
+      <div>
+        <form id="wagner-form" onsubmit="saveValues(); return false;">
+          <label for="time">Time:</label><br />
+          <input type="number" id="time" name="time" required /><br /><br />
 
-      <form id="wagner-form" onsubmit="saveValues(); return false;">
-        <label for="time">Time:</label><br />
-        <input type="number" id="time" name="time" required /><br /><br />
+          <label for="Set-Up Cost">Set-Up Cost:</label><br />
+          <input
+            type="number"
+            id="Set-Up Cost"
+            name="Set-Up Cost"
+            required
+          /><br /><br />
 
-        <label for="Set-Up Cost">Set-Up Cost:</label><br />
-        <input
-          type="number"
-          id="Set-Up Cost"
-          name="Set-Up Cost"
-          required
-        /><br /><br />
+          <label for="holding">Holding Cost:</label><br />
+          <input
+            type="number"
+            id="holding cost"
+            name="holding cost"
+            required
+          /><br /><br />
 
-        <label for="holding">Holding Cost:</label><br />
-        <input
-          type="number"
-          id="holding cost"
-          name="holding cost"
-          required
-        /><br /><br />
+          <label for="production">Production Cost:</label><br />
+          <input
+            type="number"
+            id="production"
+            name="production"
+            required
+          /><br /><br />
 
-        <label for="production">Production Cost:</label><br />
-        <input
-          type="number"
-          id="production"
-          name="production"
-          required
-        /><br /><br />
+          <label for="mean">Mean Production Shift:</label><br />
+          <input type="number" id="mean" name="mean" required /><br /><br />
 
-        <label for="mean">Mean Production Shift:</label><br />
-        <input type="number" id="mean" name="mean" required /><br /><br />
+          <label for="dev">Standard Deviation for Demand:</label><br />
+          <input type="number" id="dev" name="dev" required /><br /><br />
 
-        <label for="dev">Standard Deviation for Demand:</label><br />
-        <input type="number" id="dev" name="dev" required /><br /><br />
+          <label for="scenarios">Number of Scenarios:</label><br />
+          <input
+            type="number"
+            id="scenarios"
+            name="scenarios"
+            required
+          /><br /><br />
 
-        <label for="scenarios">Number of Scenarios:</label><br />
-        <input
-          type="number"
-          id="scenarios"
-          name="scenarios"
-          required
-        /><br /><br />
+          <label for="service">Service Level:</label><br />
+          <select id="service" name="service">
+            <option value="0.70">0.70</option>
+            <option value="0.75">0.75</option>
+            <option value="0.80">0.80</option>
+            <option value="0.81">0.81</option>
+            <option value="0.82">0.82</option>
+            <option value="0.83">0.83</option>
+            <option value="0.84">0.84</option>
+            <option value="0.85">0.85</option>
+            <option value="0.86">0.86</option>
+            <option value="0.87">0.87</option>
+            <option value="0.88">0.88</option>
+            <option value="0.89">0.89</option>
+            <option value="0.90">0.90</option>
+            <option value="0.91">0.91</option>
+            <option value="0.92">0.92</option>
+            <option value="0.93">0.93</option>
+            <option value="0.94">0.94</option>
+            <option value="0.95">0.95</option>
+            <option value="0.96">0.96</option>
+            <option value="0.97">0.97</option>
+            <option value="0.98">0.98</option>
+            <option value="0.99">0.99</option>
+            <option value="0.995">0.995</option></select
+          ><br /><br />
 
-        <label for="service">Service Level:</label><br />
-        <select id="service" name="service">
-          <option value="0.70">0.70</option>
-          <option value="0.75">0.75</option>
-          <option value="0.80">0.80</option>
-          <option value="0.81">0.81</option>
-          <option value="0.82">0.82</option>
-          <option value="0.83">0.83</option>
-          <option value="0.84">0.84</option>
-          <option value="0.85">0.85</option>
-          <option value="0.86">0.86</option>
-          <option value="0.87">0.87</option>
-          <option value="0.88">0.88</option>
-          <option value="0.89">0.89</option>
-          <option value="0.90">0.90</option>
-          <option value="0.91">0.91</option>
-          <option value="0.92">0.92</option>
-          <option value="0.93">0.93</option>
-          <option value="0.94">0.94</option>
-          <option value="0.95">0.95</option>
-          <option value="0.96">0.96</option>
-          <option value="0.97">0.97</option>
-          <option value="0.98">0.98</option>
-          <option value="0.99">0.99</option>
-          <option value="0.995">0.995</option></select
-        ><br /><br />
+          <div id="dynamic-fields" style="margin-top: 20px"></div>
 
-        <button type="button" onclick="generateInputs()">Add Fields</button>
-        <button type="submit">Submit</button>
-        <div id="dynamic-fields" style="margin-top: 20px"></div>
-      </form>
-
+          <button type="button" onclick="generateInputs()">Add Fields</button>
+          <button type="submit">Submit</button>
+        </form>
+      </div>
       <!-- Results will be displayed here -->
       <div
         id="results"
@@ -125,15 +133,28 @@
       >
         <h3>Results</h3>
 
+        <table id="fixed" border="1">
+          <thead>
+            <tr id="table-header"></tr>
+          </thead>
+          <tbody id="table-body"></tbody>
+        </table>
+
+        <table id="stohastic" border="1">
+          <thead>
+            <tr id="table2-header"></tr>
+          </thead>
+          <tbody id="table2-body"></tbody>
+        </table>
+
+        <canvas id="myChart" width="400" height="200"></canvas>
+
         <p>No results yet. Submit the form to see the calculations.</p>
       </div>
     </main>
     <footer>
-      <p>&copy; 2024 Your Name. All rights reserved.</p>
+      <p>&copy; 2024 Karlo Ujdenica. All rights reserved.</p>
     </footer>
-    <script
-      type="text/javascript"
-      src="{{url_for('static', filename='script.js')}}"
-    ></script>
+    <script src="{{ url_for('static', filename='script.js') }}" defer></script>
   </body>
 </html>
