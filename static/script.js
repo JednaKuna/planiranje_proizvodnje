@@ -1,4 +1,3 @@
-//import Chart from 'chart.js/auto';
 
 // Save form values to localStorage
 function saveValues() {
@@ -113,8 +112,7 @@ function displayResults(result) {
   // Add new results
   resultsContainer.innerHTML = `
       <h3>Results</h3>
-      <p><strong>Total Cost (Fixed Demand):</strong> ${result.total_cost_fixed}e</p>
-      <p><strong>Total Cost (Stochastic Demand):</strong> ${result.total_cost_stochastic}e</p>
+      
       <h4>Tables</h4>
       <h4>Stohastic demand</h4>
       <table id="df1" border="1">
@@ -123,6 +121,7 @@ function displayResults(result) {
       </thead>
           <tbody id="table1-body"></tbody>
       </table>
+      <p><strong>Total Cost (Stochastic Demand):</strong> ${result.total_cost_stochastic}e</p>
       <h4>Fixed demand</h4>
       <table id="df2" border="1">
       <thead>
@@ -130,6 +129,7 @@ function displayResults(result) {
       </thead>
           <tbody id="table2-body"></tbody>
       </table>
+      <p><strong>Total Cost (Fixed Demand):</strong> ${result.total_cost_fixed}e</p>
   `;
   // Table 1
   const tableHeader = document.getElementById('table1-header');
@@ -200,10 +200,7 @@ function displayResults(result) {
   canvas.id = "myChart";
   resultsContainer.appendChild(canvas);
 
-  // Prepare chart data
-  //const graph1 = result.cumsum || {};
-  //const labels = cumsum.period || [];
-  //const values_fixed = graph1.values || [];
+  // Prepare chart data and display it
   const ctx = document.getElementById('myChart').getContext('2d');
   try {
     const data = result.cost_comparison;

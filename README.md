@@ -27,7 +27,8 @@ My stack of choice for this projet: JavaScript and Python(Flask)
 
 # How it works
 
-Still in progress
+First we need to specify the time period(usually in months). Then we press "Add fields" button that generates input fields for each month.
+After that, we can add the rest of the inputs and press "Submit" button to get the calculation results.
 
 # What I learned
 
