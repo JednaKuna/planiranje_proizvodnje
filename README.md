@@ -11,6 +11,8 @@ My stack of choice for this projet: JavaScript and Python(Flask)
 - [Usage](#usage)
 - [Installation](#installation)
 - [How it works](#howitworks)
+- [Features] (#features)
+- [Upcoming] (#upcoming)
 - [What I learned](#what-i-learned)
 - [License](#license)
 
@@ -27,8 +29,25 @@ My stack of choice for this projet: JavaScript and Python(Flask)
 
 # How it works
 
+[(Back to top)](#table-of-contents)
+
 First we need to specify the time period(usually in months). Then we press "Add fields" button that generates input fields for each month.
 After that, we can add the rest of the inputs and press "Submit" button to get the calculation results.
+
+# Features
+
+[(Back to top)](#table-of-contents)
+
+Dynamicly generated input fields.
+Separated inputs from business logic.
+
+# Upcoming
+
+[(Back to top)](#table-of-contents)
+
+Visualy appealing frontend.
+New naming scheme
+More graphs
 
 # What I learned
 
