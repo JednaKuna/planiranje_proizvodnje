@@ -10,9 +10,9 @@ My stack of choice for this projet: JavaScript and Python(Flask)
 
 - [Usage](#usage)
 - [Installation](#installation)
-- [How it works](#howitworks)
-- [Features] (#features)
-- [Upcoming] (#upcoming)
+- [How it works](#how-it-works)
+- [Features](#features)
+- [Upcoming](#upcoming)
 - [What I learned](#what-i-learned)
 - [License](#license)
 
