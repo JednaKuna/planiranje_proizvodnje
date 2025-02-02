@@ -27,12 +27,12 @@ def forecast_and_production(results_final, detailed_schedule_df_no_leftovers):
     width = 0.25
 
     # Create the bars for 'forecast' and 'production' side by side
-    plt.bar(x - width, forecast_values, width, label='Forecast')
-    plt.bar(x, production_values1, width, label='Production')
-    plt.bar(x + width, production_values2, width, label='Production with Stohastic model')
-    plt.title('Comparison of Forecast and Production')
-    plt.xlabel('Time')
-    plt.ylabel('Quantity')
+    plt.bar(x - width, forecast_values, width, label='Naručene količine')
+    plt.bar(x, production_values1, width, label='Fiksne količine')
+    plt.bar(x + width, production_values2, width, label='Promjenjive količine')
+    plt.title('Usporedba naručenih i proizvedenih količina')
+    plt.xlabel('Vrijeme')
+    plt.ylabel('Količina')
     plt.xticks(x, categories)
     plt.legend()
     plt.tight_layout()
@@ -61,12 +61,12 @@ def inventory(results_final, detailed_schedule_df_no_leftovers):
     width = 0.25
 
     # Create the bars for 'forecast' and 'inventory' side by side
-    plt.bar(x - width, forecast_values, width, label='Forecast')
-    plt.bar(x, inventory_values1, width, label='Normal Inventory')
-    plt.bar(x + width, inventory_values2, width, label='Inventory with Stohastic model')
-    plt.title('Comparison of Forecast and Inventory')
-    plt.xlabel('Time')
-    plt.ylabel('Quantity')
+    plt.bar(x - width, forecast_values, width, label='Naručene količine')
+    plt.bar(x, inventory_values1, width, label='Fiksna potražnja')
+    plt.bar(x + width, inventory_values2, width, label='Promjenjiva potražnja')
+    plt.title('Usporedba naručenih količina i stanja skladišta')
+    plt.xlabel('Vrijeme')
+    plt.ylabel('Količina')
     plt.xticks(x, categories)
     plt.legend()
     plt.tight_layout()
@@ -90,9 +90,9 @@ def normal_vs_optimal_costs(cost_comprison):
     plt.plot(cost_comprison.index, cost_comprison['Stohastic Costs'], label='Stohastic', marker='o')
 
     # Adding labels and title
-    plt.title('Comparison of Normal vs Optimal vs Stohastic Costs')
-    plt.xlabel('Time')
-    plt.ylabel('Cost')
+    plt.title('Usporedba troškova')
+    plt.xlabel('Vrijeme')
+    plt.ylabel('Troškovi')
     plt.xticks(cost_comprison.index, months)
     plt.legend()
     plt.tight_layout()
@@ -109,9 +109,9 @@ def savings(cost_comparison):
     bars = plt.bar(cost_comparison.index, cost_comparison['Monthly Savings Stohastic Method'], color=bar_colors)
 
     # Labeling the chart
-    plt.title('Acumulation of savings over time')
-    plt.xlabel('Time')
-    plt.ylabel('Amount saved')
+    plt.title('Akumulacija uštede')
+    plt.xlabel('Vrijeme')
+    plt.ylabel('Količina uštede')
     plt.xticks(cost_comparison.index)  # Show all x-axis ticks for each index
 
     # Annotate each bar with its value
@@ -129,7 +129,7 @@ def usteda(optimal_costs, cost_saving):
     pie = [optimal_costs, cost_saving]
     colors = ['lightgray', 'green']
 
-    plt.title('Total savings')
+    plt.title('Ukupna ušteda')
     plt.pie(pie, labels=[f"{x:.2f}e" for x in pie], autopct='%1.1f%%', colors=colors)
 
     return(plt.show())
